@@ -9,12 +9,29 @@ interface Person {
   avatar: string;
 }
 
-let people: Person[] = [
-  { id: 1, firstName: "Alice", lastName: "Johnson", avatar: "https://i.pravatar.cc/150?img=1" },
-  { id: 2, firstName: "Bob", lastName: "Smith", avatar: "https://i.pravatar.cc/150?img=2" },
-  { id: 3, firstName: "Charlie", lastName: "Brown", avatar: "URL_ADDRESS.pravatar.cc/150?"}
-];
+function getRandomName() {
+  const firstNames = ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Hank", "Ivy", "Jack", "Karen", "Leo", "Mona", "Nina", "Oscar", "Paul", "Quinn", "Rita", "Sam", "Tina", "Uma", "Vince", "Wendy", "Xander", "Yara", "Zane"];
+  const lastNames = ["Johnson", "Smith", "Brown", "Williams", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark"];
+  const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  return { firstName, lastName };
+}
 
+function generatePeople(count: number): Person[] {
+  const people: Person[] = [];
+  for (let i = 1; i <= count; i++) {
+    const { firstName, lastName } = getRandomName();
+    people.push({
+      id: i,
+      firstName,
+      lastName,
+      avatar: `https://i.pravatar.cc/150?img=${(i % 70) + 1}` // pravatar has 70 images
+    });
+  }
+  return people;
+}
+
+let people: Person[] = generatePeople(100);
 const router = new Router();
 
 router
